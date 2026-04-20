@@ -1,6 +1,24 @@
+import { useEffect, useState } from "react"
+
 function App() {
+  const [activities, setActivities] = useState<ACtivity[]>([]);
+
+  useEffect(() => {
+    fetch('https://localhost:5001/api/activities')
+      .then(response => response.json())
+      .then(data => setActivities(data))
+  }, [])
+
   return (
-      <h3>Reactivities</h3>
+    <div>
+      <h3 className="app" style={{ color: 'red' }}>Reactivities</h3>
+      <ul>
+        {activities.map((activities) => (
+          <li key={activities.id}>{activities.title}</li>
+        ))}
+      </ul>
+    </div>
+
   )
 }
 
